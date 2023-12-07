@@ -7,10 +7,12 @@ links, descrição e tags.
 
 ---
 🧰 *TECNOLOGIAS UTILIZADAS*
+
 * Java Spring Boot
 
 ---
 * 💻 *REQUISITOS BACK-END*
+
 * A API deve responder na porta 3000
 * Deve haver uma rota para listar todas as ferramentas cadastradas
 * Deve ser possível filtrar ferramentas utilizando uma busca por tag
@@ -19,6 +21,7 @@ links, descrição e tags.
 
 ---
 * 💻 *REQUISITOS FRONT-END*
+
 * O(A) usuário(a) deve poder ver a lista de todas as ferramentas cadastradas
 * O usuário deve poder adicionar uma nova ferramenta
 * O usuário deve poder remover uma ferramenta
