@@ -80,7 +80,6 @@ public class ToolsController {
         if(toolsFounded.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tool not founded");
         }
-
         final var tools = toolsFounded.get();
 
         this.toolsRepository.delete(tools);
