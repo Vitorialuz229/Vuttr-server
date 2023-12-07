@@ -32,18 +32,32 @@ public class ToolsController {
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable(name = "id") UUID id){
-        Optional<ToolsModel> toolsFounded = this.toolsRepository.findById(id);
 
+    @GetMapping("/{id}")
+    /*@GetMapping("/{id}"): Esta anotação do Spring indica que o método getById responderá a requisições HTTP
+    do tipo GET no endpoint "/{id}". Isso significa que, quando você faz uma requisição GET para um URL como
+    "/algum-valor-aqui", o método getById será chamado, e o valor fornecido após a barra será atribuído ao
+    parâmetro id.*/
+
+    public ResponseEntity<Object> getById(@PathVariable(name = "id") UUID id){
+   /*Ele declara que o método e retorna um objeto ResponseEntity<Object>.
+    O @PathVariable(name = "id") indica que o parâmetro id é extraído da variável de caminho (path variable)
+    na URL.*/
+        Optional<ToolsModel> toolsFounded = this.toolsRepository.findById(id);
+        /*Obtém uma instância de ToolsModel do repositório com base no ID fornecido. O retorno é encapsulado
+        em um Optional, que é uma abordagem para lidar com possíveis valores nulos. */
         if(toolsFounded.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tool not founded");
         }
-
+        /*if(toolsFounded.isEmpty()) { return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tool not founded");
+        }: Verifica se o Optional está vazio. Se estiver vazio, significa que a ferramenta com o ID fornecido não
+        foi encontrada, e o método retorna uma resposta HTTP 404 (NOT_FOUND) com a mensagem "Tool not founded".*/
         final var toolsModel = toolsFounded.get();
-
+        /*Se a ferramenta foi encontrada, o método prossegue e obtém a instância real de ToolsModel do Optional.*/
         return ResponseEntity.status(HttpStatus.OK).body(toolsModel);
-    }
+    }   /*ResponseEntity.status(HttpStatus.OK).body(toolsModel);: Retorna uma resposta HTTP 200 (OK) contendo a
+        instância de ToolsModel como corpo da resposta. Isso significa que a ferramenta foi encontrada com
+        sucesso, e a resposta contém os detalhes da ferramenta.*/
 
     /*Esse método responde a requisições POST para o endpoint raiz. Ele recebe dados no corpo da requisição
     no formato JSON (usando a anotação @RequestBody) e cria uma nova instância de Tools com base nos dados recebidos.
@@ -57,7 +71,13 @@ public class ToolsController {
     }
 
     @PutMapping("/{id}")
+    /*@PutMapping("/{id}"): Esta anotação do Spring indica que o método updateTool responderá a requisições HTTP do
+    tipo PUT no endpoint "/{id}". Isso significa que, quando você faz uma requisição PUT para um URL como "/algum-valor-aqui",
+    o método updateTool será chamado, e o valor fornecido após a barra será atribuído ao parâmetro id.*/
     public ResponseEntity<Object> updateTool(@RequestBody ToolsDTO toolsDTO, @PathVariable(value = "id") UUID id) {
+        /*Ele declara que o método retorna um objeto ResponseEntity<Object>. O @RequestBody ToolsDTO toolsDTO indica que
+         os dados da requisição (JSON, geralmente) serão convertidos para um objeto ToolsDTO.O @PathVariable(value = "id")
+         UUID id indica que o parâmetro id é extraído da variável de caminho (path variable) na URL.*/
         Optional<ToolsModel> tools = toolsRepository.findById(id);
 
         if(tools.isEmpty()){
