@@ -4,14 +4,13 @@ import com.github.vitoria_abadia.vuttr.dtos.ToolsDTO;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table
 @NoArgsConstructor
-public class Tools {
+@Table(name = "tools")
+public class ToolsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -20,14 +19,14 @@ public class Tools {
     private String description;
     private String tags;
 
-    public Tools(String title, String link, String description, String tags) {
+    public ToolsModel(String title, String link, String description, String tags) {
         this.title = title;
         this.link = link;
         this.description = description;
         this.tags = tags;
     }
 
-    public Tools(ToolsDTO toolsDTO){
+    public ToolsModel(ToolsDTO toolsDTO){
         this.title = toolsDTO.title();
         this.link = toolsDTO.link();
         this.description = toolsDTO.description();
@@ -77,8 +76,8 @@ public class Tools {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tools tools = (Tools) o;
-        return Objects.equals(id, tools.id);
+        ToolsModel toolsModel = (ToolsModel) o;
+        return Objects.equals(id, toolsModel.id);
     }
 
     @Override
