@@ -19,11 +19,5 @@ links, descrição e tags.
 * Deve haver uma rota para cadastrar uma nova ferramenta
 * O usuário deve poder remover uma ferramenta por ID
 ---
-💻 *REQUISITOS FRONT-END*
 
-* O(A) usuário(a) deve poder ver a lista de todas as ferramentas cadastradas
-* O usuário deve poder adicionar uma nova ferramenta
-* O usuário deve poder remover uma ferramenta
-* O usuário deve poder buscar ferramentas dinamicamente (global ou utilizando apenas tags)
----
 
