@@ -2,12 +2,16 @@ package com.github.vitoria_abadia.vuttr.model;
 
 import com.github.vitoria_abadia.vuttr.dtos.ToolsDTO;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Data
 @NoArgsConstructor
 @Table(name = "tools")
 public class ToolsModel {
@@ -17,9 +21,18 @@ public class ToolsModel {
     private String title;
     private String link;
     private String description;
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     private String tags;
 
-    public ToolsModel(String title, String link, String description, String tags) {
+    public ToolsModel(String title, String link, String description,String tags) {
         this.title = title;
         this.link = link;
         this.description = description;
@@ -30,7 +43,12 @@ public class ToolsModel {
         this.title = toolsDTO.title();
         this.link = toolsDTO.link();
         this.description = toolsDTO.description();
-        this.tags = toolsDTO.tags();
+        this.tags = String.join(";", toolsDTO.tags());
+//        toolsDTO.tags().forEach(tags -> {
+//            TagsModel tag = new TagsModel();
+//            tag.setName(tags.toString());
+//            this.tags.add(tag);
+//        });
 }
     public UUID getId() {
         return id;
@@ -64,13 +82,6 @@ public class ToolsModel {
         this.description = description;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
 
     @Override
     public boolean equals(Object o) {
