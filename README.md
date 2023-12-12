@@ -106,15 +106,16 @@ Sua tarefa é construir uma API e banco de dados para a aplicação VUTTR (Very 
 * O usuário deve poder remover uma ferramenta por ID (DELETE /tools/:id) com resposta Status: 200 OK.
 
 
-🚩 *HOW TO RUN THE PROJECT*
+🚩 *COMO EXECUTAR O PROJETO*
 
-<h6>Pré-requisitos: </h6>
+<h4>Pré-requisitos: </h4>
+
 * Java 17
 
 * Postman
 
-<h5>Clonar repositório</h5>
+<h4>Clonar repositório</h4>
 git clone https://github.com/vitoria-abadia/vuttr-server.git
 
-<h5>Executar o projeto</h5>
+<h4>Executar o projeto</h4>
 ./mvnw spring-boot:run
