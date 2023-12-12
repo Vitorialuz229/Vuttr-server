@@ -31,6 +31,7 @@ links, description, and tags.
 
 <h6>Prerequisites: </h6>
 * Java 17
+
 * Postman
 
 <h5>Clone repository</h5>
@@ -109,6 +110,7 @@ Sua tarefa é construir uma API e banco de dados para a aplicação VUTTR (Very 
 
 <h6>Pré-requisitos: </h6>
 * Java 17
+
 * Postman
 
 <h5>Clonar repositório</h5>
