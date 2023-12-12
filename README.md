@@ -30,9 +30,8 @@ links, description, and tags.
 🚩 *HOW TO RUN THE PROJECT*
 
 <h6>Prerequisites: </h6>
-* Java 17
-
-* Postman
+Java 17
+Postman
 
 <h5>Clone repository</h5>
 git clone https://github.com/vitoria-abadia/vuttr-server.git
@@ -109,10 +108,8 @@ Sua tarefa é construir uma API e banco de dados para a aplicação VUTTR (Very 
 🚩 *COMO EXECUTAR O PROJETO*
 
 <h4>Pré-requisitos: </h4>
-
-* Java 17
-
-* Postman
+Java 17
+Postman
 
 <h4>Clonar repositório</h4>
 git clone https://github.com/vitoria-abadia/vuttr-server.git

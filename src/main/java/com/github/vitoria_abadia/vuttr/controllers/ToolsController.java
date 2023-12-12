@@ -1,43 +1,56 @@
 package com.github.vitoria_abadia.vuttr.controllers;
 
-import com.github.vitoria_abadia.vuttr.controllers.response.ToolsResponse;
 import com.github.vitoria_abadia.vuttr.dtos.ToolsDTO;
 import com.github.vitoria_abadia.vuttr.model.ToolsModel;
 import com.github.vitoria_abadia.vuttr.repository.ToolsRepository;
-
 import com.github.vitoria_abadia.vuttr.services.ToolsService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/*Essa anotação indica que a classe é um controlador Spring MVC que trata requisições HTTP.
-A classe será escaneada automaticamente pelo Spring e suas rotas serão configuradas.*/
+/**
+ * Controlador Spring MVC que lida com requisições relacionadas a ferramentas (Tools).
+ */
 @RestController
 public class ToolsController {
-    /*Realiza a injeção de dependência do 'ToolsRepository', que é uma interface Spring Data JPA
-     para operações de banco de dados relacionadas à entidade 'ToolsModel'*/
+
     @Autowired
     private ToolsRepository toolsRepository;
     private final ToolsService toolsService;
+    private List<ToolsDTO> convertToDTOList(List<ToolsModel>toolsModelList){
+        return null;
+    }
+    /**
+     * Construtor que realiza a injeção de dependência do serviço ToolsService.
+     *
+     * @param toolsService O serviço ToolsService injetado.
+     */
     public ToolsController(ToolsService toolsService) {
         this.toolsService = toolsService;
     }
 
-    /*Um método que responde a requisições GET para o endpoint raiz. Ele chama o método 'findAll'
-    do 'toolsRepository' para obter todas as ferramentas no banco de dados e retorna uma resposta HTTP
-    com lista de ferramentas e o status 200 (OK)*/
+    /**
+     * Responde a requisições GET para o endpoint raiz, retornando todas as ferramentas no banco de dados.
+     *
+     * @return Uma ResponseEntity contendo a lista de ferramentas e o status da resposta.
+     */
     @GetMapping
     public ResponseEntity<List<ToolsModel>> getAll() {
         final var list = toolsRepository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
+    /**
+     * Responde a requisições GET para o endpoint "/{id}", retornando uma ferramenta com o ID especificado.
+     *
+     * @param id O ID da ferramenta a ser recuperada.
+     * @return Uma ResponseEntity contendo a ferramenta encontrada e o status da resposta.
+     */
     @GetMapping("/{id}")
     /*@GetMapping("/{id}"): Esta anotação do Spring indica que o método getById responderá a requisições HTTP
     do tipo GET no endpoint "/{id}". Isso significa que, quando você faz uma requisição GET para um URL como
@@ -64,40 +77,79 @@ public class ToolsController {
         instância de ToolsModel como corpo da resposta. Isso significa que a ferramenta foi encontrada com
         sucesso, e a resposta contém os detalhes da ferramenta.*/
 
+    /**
+     * Responde a requisições GET para o endpoint "/list", retornando todas as ferramentas no formato de ToolsResponse.
+     *
+     * @return Uma ResponseEntity contendo a lista de ToolsResponse e o status da resposta.
+     */
     @GetMapping("/list")
-    public ResponseEntity<List<ToolsResponse>>listAll() {
-        return ResponseEntity.ok(toolsService.listAll());
-    }
-    @GetMapping("/tag")
-    public ResponseEntity<List<ToolsResponse>>findByTag(@RequestParam String tag) {
-        return ResponseEntity.ok(toolsService.findByTag(tag));
+    public ResponseEntity<List<ToolsDTO>> listAll() {
+        List<ToolsDTO> toolsDTOSList = convertToDTOList(toolsService.listAll());
+        return ResponseEntity.ok(toolsDTOSList);
     }
 
-    /*Esse método responde a requisições POST para o endpoint raiz. Ele recebe dados no corpo da requisição
-    no formato JSON (usando a anotação @RequestBody) e cria uma nova instância de Tools com base nos dados recebidos.
-    Em seguida, retorna uma resposta HTTP com a ferramenta recém-criada e o status 201 (Created).*/
+    /**
+     * Responde a requisições GET para o endpoint "/tag", retornando ferramentas com uma tag específica.
+     *
+     * @param tag A tag pela qual as ferramentas devem ser filtradas.
+     * @return Uma ResponseEntity contendo a lista de ToolsResponse e o status da resposta.
+     */
+    @GetMapping("/tag")
+    public ResponseEntity<List<ToolsDTO>> findByTag(@RequestParam String tag) {
+        List<ToolsDTO>toolsDTOSList = convertToDTOList(toolsService.findByTag(tag));
+        return ResponseEntity.ok(toolsDTOSList);
+    }
+    /**
+     * Cria uma nova ferramenta com base nos dados fornecidos no corpo da requisição.
+     *
+     * @param toolsDTO Um objeto DTO (Data Transfer Object) contendo os dados da nova ferramenta.
+     * @return Uma ResponseEntity contendo a resposta da criação, incluindo a ferramenta recém-criada e o status HTTP.
+     */
     @PostMapping
     public ResponseEntity<ToolsModel> create(@RequestBody ToolsDTO toolsDTO) {
+        // Cria uma nova instância de ToolsModel com base nos dados fornecidos no DTO.
         final var tools = new ToolsModel(toolsDTO);
-        final var toolsModel = this.toolsRepository.save(tools);
 
+        // Salva a nova ferramenta no repositório.
+        final var toolsModel = this.toolsRepository.save(tools);
+        // Retorna uma resposta 201 (CREATED) com a ferramenta recém-criada no corpo da resposta.
         return ResponseEntity.status(HttpStatus.CREATED).body(toolsModel);
     }
 
+    /**
+     * Atualiza uma ferramenta existente com base nos dados fornecidos.
+     *
+     * @param toolsDTO Um objeto DTO (Data Transfer Object) contendo os dados atualizados da ferramenta.
+     * @param id O ID da ferramenta a ser atualizada.
+     * @return Uma ResponseEntity contendo a resposta da atualização, incluindo a ferramenta atualizada e o status HTTP.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateTool(@RequestBody ToolsDTO toolsDTO, @PathVariable(value = "id") UUID id) {
+        // Obtém a ferramenta atual do repositório com base no ID fornecido.
         Optional<ToolsModel> tools = toolsRepository.findById(id);
-
+        // Verifica se a ferramenta foi encontrada.
         if(tools.isEmpty()){
+            // Retorna uma resposta 404 (NOT_FOUND) se a ferramenta não foi encontrada.
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tool not found");
         }
+        // Obtém a instância atual de ToolsModel do Optional.
         var toolModel = tools.get();
+        // Cria uma nova instância de ToolsModel com base nos dados fornecidos no DTO.
         final var newTool = new ToolsModel(toolsDTO);
+        // Copia as propriedades da ferramenta atual para a nova ferramenta.
         BeanUtils.copyProperties(toolModel, newTool);
+        // Salva as alterações na ferramenta atual no repositório.
         this.toolsRepository.save(toolModel);
+        // Retorna uma resposta 200 (OK) com a ferramenta atualizada no corpo da resposta.
         return ResponseEntity.status(HttpStatus.OK).body(toolsRepository.save(newTool));
     }
 
+    /**
+     * Responde a requisições DELETE para o endpoint "/{id}", excluindo uma ferramenta com base no ID fornecido.
+     *
+     * @param id O ID da ferramenta a ser excluída.
+     * @return Uma ResponseEntity contendo o status da resposta.
+     */
     @DeleteMapping("/{id}")
     /*Esta anotação do Spring indica que o método deleteTools responderá a requisições HTTP do tipo DELETE no endpoint
     "/{id}". Isso significa que, quando você faz uma requisição DELETE para um URL como "/algum-valor-aqui", o método

@@ -1,17 +1,13 @@
 package com.github.vitoria_abadia.vuttr.services;
 
 import com.github.vitoria_abadia.vuttr.adapter.ToolsAdapter;
-import com.github.vitoria_abadia.vuttr.controllers.response.ToolsResponse;
 import com.github.vitoria_abadia.vuttr.dtos.ToolsDTO;
 import com.github.vitoria_abadia.vuttr.model.ToolsModel;
 import com.github.vitoria_abadia.vuttr.repository.ToolsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
-import static java.util.Arrays.stream;
 
 @RequiredArgsConstructor
 @Service
@@ -25,11 +21,11 @@ public class ToolsService {
         return this.toolsRepository.save(toolsModel);
     }
 
-    public List<ToolsResponse> listAll() {
+    public List<ToolsModel> listAll() {
         return null;
     }
 
-    public List<ToolsResponse> findByTag(String tag) {
+    public List<ToolsModel> findByTag(String tag) {
         return null;
     }
 }

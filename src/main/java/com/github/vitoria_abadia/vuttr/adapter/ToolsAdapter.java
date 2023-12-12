@@ -1,24 +1,24 @@
 package com.github.vitoria_abadia.vuttr.adapter;
 
-import com.github.vitoria_abadia.vuttr.controllers.request.ToolsRequest;
-import com.github.vitoria_abadia.vuttr.controllers.response.ToolsResponse;
+import com.github.vitoria_abadia.vuttr.dtos.ToolsDTO;
 import com.github.vitoria_abadia.vuttr.model.ToolsModel;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ToolsAdapter {
-    public ToolsModel toTool(ToolsRequest toolsRequest) {
+
+    public ToolsModel toTool(ToolsDTO toolsDTO) {
         return ToolsModel.builder()
-                .title(toolsRequest.getTitle())
-                .link(toolsRequest.getLink())
-                .description(toolsRequest.getDescription())
-                .tags(toolsRequest.getTags())
+                .title(toolsDTO.getTitle())
+                .link(toolsDTO.getLink())
+                .description(toolsDTO.getDescription())
+                .tags(toolsDTO.getTags())
                 .build();
     }
 
-    public ToolsResponse ToToolsResponse(ToolsModel toolsModel) {
-        return ToolsResponse.builder()
-                .id(toolsModel.getId())
+    public ToolsDTO ToToolsDTO(ToolsModel toolsModel) {
+        return ToolsDTO.builder()
+                .id()
                 .title(toolsModel.getTitle())
                 .link(toolsModel.getLink())
                 .description(toolsModel.getDescription())

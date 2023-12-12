@@ -8,6 +8,9 @@ import java.util.UUID;
 
 import lombok.*;
 
+/**
+ * Entidade que representa uma tag no banco de dados.
+ */
 @Entity
 @Getter
 @Setter
@@ -16,6 +19,9 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "tags")
 public class TagsModel {
+    /**
+     * ID único da tag.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
