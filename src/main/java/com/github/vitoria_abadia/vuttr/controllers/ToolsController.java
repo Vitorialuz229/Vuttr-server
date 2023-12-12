@@ -1,9 +1,12 @@
 package com.github.vitoria_abadia.vuttr.controllers;
 
+import com.github.vitoria_abadia.vuttr.controllers.response.ToolsResponse;
 import com.github.vitoria_abadia.vuttr.dtos.ToolsDTO;
 import com.github.vitoria_abadia.vuttr.model.ToolsModel;
 import com.github.vitoria_abadia.vuttr.repository.ToolsRepository;
 
+import com.github.vitoria_abadia.vuttr.services.ToolsService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,10 @@ public class ToolsController {
      para operações de banco de dados relacionadas à entidade 'ToolsModel'*/
     @Autowired
     private ToolsRepository toolsRepository;
+    private final ToolsService toolsService;
+    public ToolsController(ToolsService toolsService) {
+        this.toolsService = toolsService;
+    }
 
     /*Um método que responde a requisições GET para o endpoint raiz. Ele chama o método 'findAll'
     do 'toolsRepository' para obter todas as ferramentas no banco de dados e retorna uma resposta HTTP
@@ -57,17 +64,14 @@ public class ToolsController {
         instância de ToolsModel como corpo da resposta. Isso significa que a ferramenta foi encontrada com
         sucesso, e a resposta contém os detalhes da ferramenta.*/
 
-//    @Autowired
-//    private ToolsService service;
-//
-//    @ApiOperation(value= "lists all tools or lists all tools by tag")
-//    @GetMapping
-//    public ResponseEntity<>
-
-
-
-
-
+    @GetMapping("/list")
+    public ResponseEntity<List<ToolsResponse>>listAll() {
+        return ResponseEntity.ok(toolsService.listAll());
+    }
+    @GetMapping("/tag")
+    public ResponseEntity<List<ToolsResponse>>findByTag(@RequestParam String tag) {
+        return ResponseEntity.ok(toolsService.findByTag(tag));
+    }
 
     /*Esse método responde a requisições POST para o endpoint raiz. Ele recebe dados no corpo da requisição
     no formato JSON (usando a anotação @RequestBody) e cria uma nova instância de Tools com base nos dados recebidos.
@@ -80,19 +84,19 @@ public class ToolsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(toolsModel);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Object> updateTool(@RequestBody ToolsDTO toolsDTO, @PathVariable(value = "id") UUID id) {
-//        Optional<ToolsModel> tools = toolsRepository.findById(id);
-//
-//        if(tools.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tool not found");
-//        }
-//        var toolModel = tools.get();
-//        final var newTool = new ToolsModel(toolsDTO);
-//        BeanUtils.copyProperties(toolModel, newTool);
-//        this.toolsRepository.save(toolModel);
-//        return ResponseEntity.status(HttpStatus.OK).body(toolsRepository.save(newTool));
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateTool(@RequestBody ToolsDTO toolsDTO, @PathVariable(value = "id") UUID id) {
+        Optional<ToolsModel> tools = toolsRepository.findById(id);
+
+        if(tools.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tool not found");
+        }
+        var toolModel = tools.get();
+        final var newTool = new ToolsModel(toolsDTO);
+        BeanUtils.copyProperties(toolModel, newTool);
+        this.toolsRepository.save(toolModel);
+        return ResponseEntity.status(HttpStatus.OK).body(toolsRepository.save(newTool));
+    }
 
     @DeleteMapping("/{id}")
     /*Esta anotação do Spring indica que o método deleteTools responderá a requisições HTTP do tipo DELETE no endpoint

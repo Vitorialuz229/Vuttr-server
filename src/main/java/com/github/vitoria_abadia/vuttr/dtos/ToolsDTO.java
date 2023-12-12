@@ -1,5 +1,7 @@
 package com.github.vitoria_abadia.vuttr.dtos;
 
+import lombok.Data;
+
 import java.util.List;
 
 public record ToolsDTO<tags>(

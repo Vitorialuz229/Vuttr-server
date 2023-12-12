@@ -21,8 +21,5 @@ public class TagsModel {
     private UUID id;
     private String name;
 
-    @ManyToMany
-    private Set<ToolsModel> tools;
-
 }
 
