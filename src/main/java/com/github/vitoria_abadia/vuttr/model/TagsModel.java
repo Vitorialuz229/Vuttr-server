@@ -19,9 +19,6 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "tags")
 public class TagsModel {
-    /**
-     * ID único da tag.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
