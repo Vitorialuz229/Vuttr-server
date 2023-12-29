@@ -28,7 +28,6 @@ public class ToolsModel {
      */
     @ElementCollection
     private List<String> tags;
-
     public ToolsModel(ToolsResponseDTO toolsResponseDTO) {
     }
     /**

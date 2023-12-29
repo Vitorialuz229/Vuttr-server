@@ -1,7 +1,6 @@
 package com.github.vitoria_abadia.vuttr.DTO;
 
 import lombok.Data;
-
 import java.util.List;
 /**
  * A classe ToolsRequestDTO representa um objeto de transferência de dados (DTO)

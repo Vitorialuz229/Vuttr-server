@@ -1,11 +1,7 @@
 package com.github.vitoria_abadia.vuttr.model;
 
 import jakarta.persistence.*;
-
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-
 import lombok.*;
 
 /**
@@ -23,6 +19,4 @@ public class TagsModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-
 }
-

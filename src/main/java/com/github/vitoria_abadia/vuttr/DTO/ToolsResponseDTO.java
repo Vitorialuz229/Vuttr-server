@@ -2,10 +2,8 @@ package com.github.vitoria_abadia.vuttr.DTO;
 
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 import java.util.UUID;
-
 /**
  * A classe ToolsResponseDTO representa um objeto de transferência de dados (DTO)
  * utilizado para enviar informações sobre ferramentas como resposta a requisições.

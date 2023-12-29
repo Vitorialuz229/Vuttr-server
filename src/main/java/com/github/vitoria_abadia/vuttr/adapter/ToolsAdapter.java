@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 /**
  * A classe ToolsAdapter é responsável por realizar a conversão entre diferentes representações
  * de objetos, como ToolsRequestDTO, ToolsResponseDTO e ToolsModel.
- *
  * Esta classe é um componente Spring, o que significa que pode ser automaticamente escaneada e
  * registrada no contexto do Spring.
  */

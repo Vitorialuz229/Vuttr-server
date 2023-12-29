@@ -1,7 +1,4 @@
 <h1 align="center"> Very Useful Tools to Remember - Back-end</h1>
-<p align="center">
-<img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DEVELOPMENT&color=GREEN&style=for-the-badge"/>
-</p>
 
 🧐 *ABOUT THE PROJECT*
 
@@ -79,9 +76,6 @@ git clone https://github.com/vitoria-abadia/vuttr-server.git
   <br>
   <br>
 <h1 align="center"> Ferramentas muito úteis para lembrar - Back-end</h1>
-<p align="center">
-<img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
-</p>
 
 🧐 *SOBRE*
 
