@@ -30,7 +30,7 @@ public class ToolsService {
     private ToolsAdapter toolAdapter;
 
     public List<ToolsResponseDTO> listAll() {
-        return this.toolsRepository.findAll()
+        return toolsRepository.findAll()
                 .stream()
                 .map(toolAdapter::ToToolsDTO)
                 .collect(Collectors.toList());
@@ -71,7 +71,7 @@ public class ToolsService {
 
     public void delete(UUID id) {
         var tool = this.toolsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ferramenta não encotrada"));
-        toolsRepository.delete((ToolsModel) tool);
+                .orElseThrow(() -> new RuntimeException("Non-found tool"));
+        this.toolsRepository.delete((ToolsModel) tool);
     }
 }
