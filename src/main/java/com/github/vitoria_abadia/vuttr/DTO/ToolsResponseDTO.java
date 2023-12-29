@@ -6,6 +6,12 @@ import lombok.Data;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * A classe ToolsResponseDTO representa um objeto de transferência de dados (DTO)
+ * utilizado para enviar informações sobre ferramentas como resposta a requisições.
+ * É marcada com as anotações Lombok @Data e @Builder para geração automática de métodos
+ * e para facilitar a construção do objeto usando o padrão de design Builder.
+ */
 @Data
 @Builder
 public class ToolsResponseDTO {

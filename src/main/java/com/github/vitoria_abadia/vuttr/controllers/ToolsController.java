@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 public class ToolsController {
     @Autowired
     private ToolsService toolsService;
 
     /**
-     * @description - Metodo para obter todas as ferramentas
      * @return - Retorna uma lista do DTO de resposta das tools
+     * @description - Metodo para obter todas as ferramentas
      */
     @GetMapping
     public ResponseEntity<List<ToolsResponseDTO>> getAll() {
@@ -27,14 +28,16 @@ public class ToolsController {
         // Retornando status OK para o consumidor da api e retornando no corpo da requisição a lista de ferramentas
         return ResponseEntity.status(HttpStatus.OK).body(toolsList);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ToolsResponseDTO> getById(@PathVariable(name = "id") UUID id){
+    public ResponseEntity<ToolsResponseDTO> getById(@PathVariable(name = "id") UUID id) {
         // Utilizando serviço de tools para obter uma tool com o ID
         final var tool =  this.toolsService.getById(id);
 
         // retornando status OK para busca realizada e no corpo a ferramenta encontrada pelo id
         return ResponseEntity.status(HttpStatus.OK).body(tool);
     }
+
     @GetMapping("/{tag}")
     public ResponseEntity<List<ToolsResponseDTO>> findByTag(@PathVariable(name = "tag") String tag) {
         // Encontrando tools pela tag utilizando o serviço de tools
@@ -50,5 +53,11 @@ public class ToolsController {
 
         // Retorna uma resposta 201 (CREATED) com a ferramenta recém-criada no corpo da resposta.
         return ResponseEntity.status(HttpStatus.CREATED).body(tools);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        this.toolsService.delete(id);
+        return ResponseEntity.ok().body("Tool has been deleted");
     }
 }
